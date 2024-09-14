@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { auth, SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import CardSummary from "./components/CardSummary";
-import { BookOpenCheck, Bot, Newspaper, Notebook, UserRound } from "lucide-react";
+import { BookOpenCheck, Bot, Building, InfoIcon, Newspaper, Notebook, UserRound } from "lucide-react";
 import CustomTableDetail from "./components/CustomTableDetail";
+import CustomTable from "./components/CustomTable";
+import CustomWidget from "./components/CustomWidget"
 
 export const dataCardsSummary = [
   {
@@ -50,10 +52,19 @@ export default async function Home() {
       </div>
       <div className="grid grid-cols-1 mt-12 xl:grid-cols-2 md:gap-x-10">
         <div>
-          <h1>Lista de Productos</h1>
-          <CustomTableDetail data={data} />
+          <CustomWidget 
+            content={<CustomTable />} 
+            title="Custom Table" 
+            icon={Building}
+          />
         </div>
-        <p>Last News Stoks</p>
+        <div>
+          <CustomWidget 
+            content={<CustomTableDetail data={data} />} 
+            title="Custom Table Details" 
+            icon={InfoIcon} 
+          />
+        </div>
       </div>
     </div>
   );
