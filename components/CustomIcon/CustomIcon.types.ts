@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react"
 
 export type CustomIconProps = {
-    icon: LucideIcon
+    icon: LucideIcon;
+    className?: string;
 }

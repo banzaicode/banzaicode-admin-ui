@@ -1,21 +1,21 @@
 import CustomIcon from "@/components/CustomIcon";
-import { Building } from "lucide-react";
+import { Building, LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 interface CustomWidgetProps {
   content: ReactNode;
   title?: string;
-  icon?: React.ElementType;
+  icon?: LucideIcon;
 }
 
 export default function CustomWidget({ content, title = "Last News Market", icon = Building }: CustomWidgetProps) {
     return (
-        <div className="shadow-sm bg-background rounded-lg p-5">
-            <div className="flex gap-x-2 items-center mb-4">
-                <CustomIcon icon={icon} />
-                <p className="text-xl">{title}</p>
+        <div className="shadow-md bg-card text-card-foreground rounded-lg p-5 border border-border hover:shadow-lg transition-shadow">
+            <div className="flex gap-x-3 items-center mb-4">
+                <CustomIcon icon={icon} className="text-primary" />
+                <h3 className="text-xl font-semibold text-foreground">{title}</h3>
             </div>
-            <div>
+            <div className="text-muted-foreground prose dark:prose-invert">
                 {content}
             </div>
         </div>
