@@ -85,7 +85,7 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize text-foreground">{row.getValue("status")}</div>
     ),
   },
   {
@@ -95,17 +95,18 @@ export const columns: ColumnDef<Payment>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-foreground"
         >
           Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div className="lowercase text-foreground">{row.getValue("email")}</div>,
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div className="text-right text-foreground">Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"))
 
@@ -115,7 +116,7 @@ export const columns: ColumnDef<Payment>[] = [
         currency: "USD",
       }).format(amount)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right font-medium text-foreground">{formatted}</div>
     },
   },
   {
@@ -127,7 +128,7 @@ export const columns: ColumnDef<Payment>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button variant="ghost" className="h-8 w-8 p-0 text-foreground">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
@@ -178,7 +179,7 @@ export default function CustomTable() {
   })
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-background text-foreground">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."
@@ -186,11 +187,11 @@ export default function CustomTable() {
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm text-foreground"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto text-foreground">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -215,14 +216,14 @@ export default function CustomTable() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border border-border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="border-b border-border">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-foreground">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -241,9 +242,10 @@ export default function CustomTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="border-b border-border hover:bg-muted/50"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-foreground">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -256,7 +258,7 @@ export default function CustomTable() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center text-foreground"
                 >
                   No results.
                 </TableCell>
@@ -276,6 +278,7 @@ export default function CustomTable() {
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
+            className="text-foreground"
           >
             Previous
           </Button>
@@ -284,6 +287,7 @@ export default function CustomTable() {
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
+            className="text-foreground"
           >
             Next
           </Button>

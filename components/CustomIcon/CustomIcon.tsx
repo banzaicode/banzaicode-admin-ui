@@ -1,9 +1,9 @@
 import { CustomIconProps } from './CustomIcon.types'
+import { cn } from '@/lib/utils'
 
-export default function CustomIcon(props: CustomIconProps) {
-    const { icon: Icon } = props
+export default function CustomIcon({ icon: Icon, className }: CustomIconProps) {
     return (
-        <div className="p-2 bg-slate-400/20 rounded-lg">
+        <div className={cn("p-2 bg-primary/10 rounded-lg", className)}>
             <Icon strokeWidth={1} className='w-4 h-4' />
         </div>
     )

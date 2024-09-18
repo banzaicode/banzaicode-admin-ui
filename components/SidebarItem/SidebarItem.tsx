@@ -11,15 +11,17 @@ export default function Sidebaritem( props: SiderbarItemProps) {
 
     const pathname = usePathname()
 
-    const activePath = pathname == href
+    const isActive = pathname === href
 
     return (
         <Link href={href}
-            className={
-                cn('flex gap-x-2 mt-2 light:text-slate-700 dark:text-white text-sm items-center hover:bg-slate-300/20 p-2 rounded-lg cursor-pointer', 
-                    activePath && 'bg-slate-400/20')}>
-            <Icon className="h-5 w-5" strokeWidth={1} />
-            {label}
+            className={cn(
+                'flex gap-x-2 mt-2 text-sm items-center p-2 rounded-lg cursor-pointer transition-colors',
+                'text-foreground hover:bg-primary/100 hover:text-secondary',
+                isActive ? 'bg-primary/100 text-secondary font-medium' : 'font-normal'
+            )}>
+            <Icon className="h-5 w-5" strokeWidth={1.5} />
+            <span>{label}</span>
         </Link>
     )
 }
