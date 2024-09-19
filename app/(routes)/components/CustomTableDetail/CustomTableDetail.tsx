@@ -8,8 +8,10 @@ import { cn } from "@/lib/utils";
 const CustomTableDetail: React.FC<CustomTableDetailProps> = ({ data }) => {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
 
-  const handleRowClick = (id: number) => {
-    setSelectedRow(selectedRow === id ? null : id);
+  const handleRowClick = (id: number, description?: string) => {
+    if (description) {
+      setSelectedRow(selectedRow === id ? null : id);
+    }
   };
 
   return (
@@ -25,16 +27,16 @@ const CustomTableDetail: React.FC<CustomTableDetailProps> = ({ data }) => {
           {data.map((row) => (
             <React.Fragment key={row.id}>
               <TableRow 
-                onClick={() => handleRowClick(row.id)} 
+                onClick={() => handleRowClick(row.id, row.description)} 
                 className={cn(
                   "cursor-pointer hover:bg-muted/50 transition-colors",
-                  selectedRow === row.id && "bg-muted"
+                  selectedRow === row.id && row.description  && "bg-muted"
                 )}
               >
                 <TableCell className="text-foreground">{row.name}</TableCell>
                 <TableCell className="text-foreground">{row.price}</TableCell>
               </TableRow>
-              {selectedRow === row.id && (
+              {selectedRow === row.id && row.description  && (
                 <TableRow>
                   <TableCell colSpan={2} className="bg-muted/30 text-muted-foreground">
                     <div className="p-2">{row.description}</div>
