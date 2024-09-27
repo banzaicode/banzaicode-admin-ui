@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CustomTableDetailProps } from "./CustomTableDetail.types";
 import { cn } from "@/lib/utils";
+import CustomIcon from '@/components/CustomIcon';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 
 const CustomTableDetail: React.FC<CustomTableDetailProps> = ({ data }) => {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
@@ -19,6 +21,7 @@ const CustomTableDetail: React.FC<CustomTableDetailProps> = ({ data }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="text-foreground"></TableHead>
             <TableHead className="text-foreground">Nombre</TableHead>
             <TableHead className="text-foreground">Precio</TableHead>
           </TableRow>
@@ -33,12 +36,15 @@ const CustomTableDetail: React.FC<CustomTableDetailProps> = ({ data }) => {
                   selectedRow === row.id && row.description  && "bg-muted"
                 )}
               >
+                <TableCell className="text-foreground w-10">
+                  {row.description ? (selectedRow === row.id ? <CustomIcon icon={ArrowDown} className="bg-transparent" /> : <CustomIcon icon={ArrowRight} className="bg-transparent" />) : ""}
+                </TableCell>
                 <TableCell className="text-foreground">{row.name}</TableCell>
                 <TableCell className="text-foreground">{row.price}</TableCell>
               </TableRow>
               {selectedRow === row.id && row.description  && (
                 <TableRow>
-                  <TableCell colSpan={2} className="bg-muted/30 text-muted-foreground">
+                  <TableCell colSpan={3} className="bg-muted/30 text-muted-foreground">
                     <div className="p-2">{row.description}</div>
                   </TableCell>
                 </TableRow>
