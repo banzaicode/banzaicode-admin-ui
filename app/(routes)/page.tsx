@@ -1,9 +1,10 @@
 import CardSummary from "./components/CardSummary";
-import { Bot, Building, InfoIcon, Newspaper, Notebook } from "lucide-react";
+import { BarChart, Bot, Building, InfoIcon, Newspaper, Notebook } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CustomTableDetail from "./components/CustomTableDetail";
 import CustomTable from "./components/CustomTable";
 import CustomWidget from "./components/CustomWidget"
+import CustomChart from "./components/CustomChart";
 
 export const dataCardsSummary = [
   {
@@ -32,6 +33,15 @@ const data = [
   { id: 2, name: "Producto 2", price: "$20" },
   { id: 3, name: "Producto 3", price: "$30", description: "Descripción detallada del Producto 3" },
   { id: 4, name: "Producto 4", price: "$40", description: "Descripción detallada del Producto 4" },
+];
+
+const chartData = [
+  { name: "Ene", total: 167 },
+  { name: "Feb", total: 190 },
+  { name: "Mar", total: 210 },
+  { name: "Abr", total: 252 },
+  { name: "May", total: 265 },
+  { name: "Jun", total: 280 },
 ];
 
 export default async function Home() {
@@ -88,7 +98,11 @@ export default async function Home() {
           </Tabs>
         </div>
         <div>
-          {/* Espacio para contenido adicional */}
+          <CustomWidget 
+            content={<CustomChart data={chartData} />} 
+            title="Métricas Mensuales" 
+            icon={BarChart} 
+          />
         </div>
       </div>
     </div>
