@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html, body, :root {
   height: 100%;
 }
@@ -10,12 +9,14 @@ html, body, :root {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --icon-color: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --icon-color: #ededed;
   }
 }
 
@@ -35,7 +36,8 @@ body {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --icon-color: 222.2 84% 4.9%;
+    --card: 0 0% 98%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
@@ -58,10 +60,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --background-level-1: 0 0% 98%;
+    --background-level-2: 0 0% 90%;
+    --background-level-3: 0 0% 80%;
   }
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+    --icon-color: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
