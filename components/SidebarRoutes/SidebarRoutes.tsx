@@ -2,7 +2,7 @@
 
 import Sidebaritem from '@/components/SidebarItem'
 import { Separator } from '@/components/ui/separator'
-import { dataGeneralSidebar, dataSupportSidebar, dataToolsSidebar } from './SidebarRoutes.data'
+import { dataDevelopSidebar, dataGeneralSidebar, dataSupportSidebar, dataToolsSidebar } from './SidebarRoutes.data'
 import { Button } from '@/components/ui/button'
 
 export default function SidebarRoutes() {
@@ -26,6 +26,13 @@ export default function SidebarRoutes() {
                 <div className='p-2 md:p-6'>
                     <p className='text-muted-foreground mb-2 font-semibold'>TOOLS</p>
                     {dataToolsSidebar.map((item) => (
+                        <Sidebaritem key={item.label} item={item} />
+                    ))}
+                </div>
+                <Separator className="bg-border" />
+                <div className='p-2 md:p-6'>
+                    <p className='text-muted-foreground mb-2 font-semibold'>DEVS</p>
+                    {dataDevelopSidebar.map((item) => (
                         <Sidebaritem key={item.label} item={item} />
                     ))}
                 </div>

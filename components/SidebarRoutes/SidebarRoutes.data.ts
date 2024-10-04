@@ -5,7 +5,8 @@ import {
     Settings,
     ShieldCheck,
     CircleHelpIcon,
-    Calendar
+    Calendar,
+    Component
 } from 'lucide-react'
 
 export const dataGeneralSidebar = [
@@ -49,5 +50,13 @@ export const dataSupportSidebar = [
         icon: ShieldCheck,
         label: "Security",
         href: "/security"
+    },
+]
+
+export const dataDevelopSidebar = [
+    {
+        icon: Component,
+        label: "Components",
+        href: "/elements-ui"
     },
 ]
