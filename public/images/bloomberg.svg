@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="1000"
+   viewBox="115 -9.6 82.496 47.552377"
+   width="800"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="bloomberg.svg"
+   inkscape:version="1.3.1 (9b9bdc1480, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="0.5412"
+     inkscape:cx="255.91279"
+     inkscape:cy="453.62158"
+     inkscape:window-width="1920"
+     inkscape:window-height="961"
+     inkscape:window-x="1920"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 132.12981,-18.871588 h 28.10398 c 5.35315,0 9.368,1.58089 12.34197,4.215707 3.27137,3.16178 5.05574,7.7287959 5.05574,13.349739 0,6.499215 -2.23047,10.5392684 -6.69142,12.99843 v 0.351309 c 5.94793,2.283508 9.36799,8.607068 9.36799,16.16021 0,7.201833 -2.37917,12.822776 -6.24533,16.335865 -3.27137,2.810472 -7.43492,4.040053 -13.08545,4.040053 h -28.84748 z m 25.27872,26.348169 c 2.97396,0 5.20444,-1.932199 5.20444,-5.972252 0,-3.8643978 -2.23048,-5.7965968 -5.35315,-5.7965968 h -9.66539 V 7.300927 h 9.8141 z m 1.33828,26.172515 c 3.42007,0 5.94794,-2.459163 5.94794,-6.850524 0,-4.742671 -2.67658,-6.850525 -5.94794,-6.850525 H 147.74314 V 33.82475 h 11.00367 z"
+     id="path1"
+     sodipodi:nodetypes="cscsccscscccsscccccsscccc"
+     style="stroke-width:1.61615" />
+</svg>

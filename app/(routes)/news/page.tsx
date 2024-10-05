@@ -16,6 +16,12 @@ const getImageForOrigin = (origin: string): string => {
     'cnn.com': '/images/cnn.svg',
     'bbc.com': '/images/nbc.svg',
     'nytimes.com': '/images/newyorktimes.svg',
+    'marketwatch.com': '/images/marketwatch.svg',
+    'foxbusiness.com': '/images/foxbusiness.svg',
+    'cnbc.com': '/images/nbc.svg',
+    'bloomberg.com': '/images/bloomberg.svg',
+    'finance.yahoo.com': '/images/yahoofinance.svg',
+    'wsj.com': '/images/wallstreetjournal.svg',
     // Agrega más mapeos según sea necesario
   };
   return domainToImage[origin] || '/images/default.svg';
