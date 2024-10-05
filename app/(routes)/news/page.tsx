@@ -11,13 +11,34 @@ import { Newspaper } from 'lucide-react';
 // Extendemos News para que cumpla con Record<string, unknown>
 type NewsItem = News & Record<string, unknown>;
 
+const getImageForOrigin = (origin: string): string => {
+  const domainToImage: { [key: string]: string } = {
+    'cnn.com': '/images/cnn.svg',
+    'bbc.com': '/images/nbc.svg',
+    'nytimes.com': '/images/newyorktimes.svg',
+    // Agrega más mapeos según sea necesario
+  };
+  return domainToImage[origin] || '/images/default.svg';
+};
+
 const NewsPage: React.FC = () => {
   const [news, setNews] = React.useState<NewsItem[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await newsService.getNews();
-      setNews(newsData as NewsItem[]);
+      try {
+        setIsLoading(true);
+        const newsData = await newsService.getNews();
+        setNews(newsData as NewsItem[]);
+        setError(null);
+      } catch (err) {
+        setError('Error al cargar las noticias. Por favor, intente de nuevo más tarde.');
+        console.error('Error fetching news:', err);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchNews();
   }, []);
@@ -30,7 +51,7 @@ const NewsPage: React.FC = () => {
       render: (value) => (
         <div className="flex items-center justify-center w-12">
           <Image 
-            src={value as string} 
+            src={getImageForOrigin(value as string)}
             alt="Origen" 
             width={24} 
             height={24} 
@@ -40,14 +61,13 @@ const NewsPage: React.FC = () => {
       ),
     },
     {
-      key: 'date',
-      header: 'Fecha',
-      initialWidth: 80,
-    },
-    {
-      key: 'time',
-      header: 'Hora',
-      initialWidth: 80,
+      key: 'pubDate',
+      header: 'Fecha y Hora',
+      initialWidth: 160,
+      render: (value) => {
+        const date = new Date(value as string);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+      },
     },
     {
       key: 'title',
@@ -64,11 +84,16 @@ const NewsPage: React.FC = () => {
 
   const handleRowClick = async (row: NewsItem) => {
     if (row.hasDescription && !row.description) {
-      const newsWithDescription = await newsService.getDescriptionNews(row.id);
-      if (newsWithDescription) {
-        setNews(prevNews => prevNews.map(item => 
-          item.id === newsWithDescription.id ? {...item, ...newsWithDescription} : item
-        ));
+      try {
+        const newsWithDescription = await newsService.getDescriptionNews(row._id);
+        if (newsWithDescription) {
+          setNews(prevNews => prevNews.map(item => 
+            item._id === newsWithDescription._id ? {...item, ...newsWithDescription} : item
+          ));
+        }
+      } catch (err) {
+        console.error('Error fetching news description:', err);
+        // Aquí podrías mostrar un mensaje de error al usuario si lo deseas
       }
     }
   };
@@ -79,17 +104,24 @@ const NewsPage: React.FC = () => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-200">
         <CustomWidget 
           content={
-            <CustomTableDetail<NewsItem>
-              data={news}
-              columns={columns}
-              onRowClick={handleRowClick}
-              className="text-gray-800 dark:text-gray-100"
-            />
+            isLoading ? (
+              <p>Cargando noticias...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : news.length === 0 ? (
+              <p>No hay noticias disponibles en este momento.</p>
+            ) : (
+              <CustomTableDetail<NewsItem>
+                data={news}
+                columns={columns}
+                onRowClick={handleRowClick}
+                className="text-gray-800 dark:text-gray-100"
+              />
+            )
           } 
           title="Noticias de Mercados" 
           icon={Newspaper} 
         />            
-
       </div>
     </div>
   );

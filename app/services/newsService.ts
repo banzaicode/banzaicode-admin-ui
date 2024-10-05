@@ -1,47 +1,85 @@
+import axios from 'axios';
+
 export interface News {
-  id: number;
-  origin: string;
+  _id: string;
   title: string;
-  date: string;
-  time: string;
+  link: string;
+  pubDate: string;
+  description?: string;
+  origin: string;
   hasDescription: boolean;
 }
 
-export interface NewsWithDescription extends News {
-  description: string;
+interface ApiNewsItem {
+  _id: string;
+  title: string;
+  link: string;
+  pubDate: string;
+  description?: string;
 }
 
 class NewsService {
-  private news: News[] = [
-    { id: 1, origin: '/images/cnn.svg', title: 'Noticia importante de CNN', date: '15-05-2023', time: '10:30', hasDescription: true },
-    { id: 2, origin: '/images/nbc.svg', title: 'Última hora de BBC', date: '15-05-2023', time: '11:45', hasDescription: true },
-    { id: 3, origin: '/images/newyorktimes.svg', title: 'Reportaje especial del New York Times', date: '15-05-2023', time: '14:20', hasDescription: true },
-    { id: 4, origin: '/images/newyorktimes.svg', title: 'Reportaje especial del New York Times parte 2', date: '15-05-2023', time: '14:20', hasDescription: false },
-    { id: 5, origin: '/images/nbc.svg', title: 'Última hora de BBC parte 2', date: '15-05-2023', time: '11:45', hasDescription: true },
-  ];
+  private apiUrl = '/api/news';
 
-  async getNews(): Promise<News[]> {
-    // Simulando una llamada asíncrona a una base de datos
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(this.news), 500);
-    });
+  private extractDomain(url: string): string {
+    try {
+      const domain = new URL(url).hostname;
+      return domain.replace('www.', '');
+    } catch (error) {
+      console.error('Error extracting domain:', error);
+      return 'unknown';
+    }
   }
 
-  async getDescriptionNews(id: number): Promise<NewsWithDescription | undefined> {
-    // Simulando una llamada asíncrona para obtener la descripción
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newsItem = this.news.find(item => item.id === id);
-        if (newsItem) {
-          resolve({
-            ...newsItem,
-            description: `Esta es una descripción detallada de la noticia "${newsItem.title}".`
-          });
-        } else {
-          resolve(undefined);
+  async getNews(): Promise<News[]> {
+    try {
+      const response = await axios.get<ApiNewsItem[]>(this.apiUrl);
+      return response.data.map((item: ApiNewsItem) => ({
+        _id: item._id,
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate,
+        description: item.description,
+        origin: this.extractDomain(item.link),
+        hasDescription: !!item.description
+      }));
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error fetching news:', error.message);
+        throw new Error(`Failed to fetch news: ${error.message}`);
+      } else {
+        console.error('Unexpected error:', error);
+        throw new Error('An unexpected error occurred while fetching news');
+      }
+    }
+  }
+
+  async getDescriptionNews(id: string): Promise<News | undefined> {
+    try {
+      const response = await axios.get<ApiNewsItem>(`${this.apiUrl}/${id}`);
+      const item = response.data;
+      return {
+        _id: item._id,
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate,
+        description: item.description,
+        origin: this.extractDomain(item.link),
+        hasDescription: !!item.description
+      };
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 404) {
+          console.error(`News with id ${id} not found`);
+          return undefined;
         }
-      }, 300);
-    });
+        console.error('Error fetching news description:', error.message);
+        throw new Error(`Failed to fetch news description: ${error.message}`);
+      } else {
+        console.error('Unexpected error:', error);
+        throw new Error('An unexpected error occurred while fetching news description');
+      }
+    }
   }
 }
 
