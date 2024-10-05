@@ -101,3 +101,24 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .news-table-compact {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    border-collapse: separate;
+    border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+  }
+  
+  .news-table-compact td,
+  .news-table-compact th {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .news-table-compact tr {
+    height: auto;
+  }
+}

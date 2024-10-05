@@ -4,7 +4,7 @@ export interface News {
   _id: string;
   title: string;
   link: string;
-  pubDate: string;
+  datetime: string;
   description?: string;
   origin: string;
   hasDescription: boolean;
@@ -14,7 +14,7 @@ interface ApiNewsItem {
   _id: string;
   title: string;
   link: string;
-  pubDate: string;
+  datetime: string;
   description?: string;
 }
 
@@ -38,7 +38,7 @@ class NewsService {
         _id: item._id,
         title: item.title,
         link: item.link,
-        pubDate: item.pubDate,
+        datetime: item.datetime,
         description: item.description,
         origin: this.extractDomain(item.link),
         hasDescription: !!item.description
@@ -62,7 +62,7 @@ class NewsService {
         _id: item._id,
         title: item.title,
         link: item.link,
-        pubDate: item.pubDate,
+        datetime: item.datetime,
         description: item.description,
         origin: this.extractDomain(item.link),
         hasDescription: !!item.description

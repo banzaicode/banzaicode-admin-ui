@@ -5,7 +5,7 @@ export interface ColumnDefinition<T> {
   header: string;
   render?: (value: T[keyof T], row: T) => ReactNode;
   isDetail?: boolean;
-  initialWidth?: number; // Nuevo campo para el ancho inicial
+  initialWidth?: number;
 }
 
 export interface CustomTableDetailProps<T> {
@@ -13,4 +13,5 @@ export interface CustomTableDetailProps<T> {
   columns: ColumnDefinition<T>[];
   onRowClick?: (row: T) => void;
   className?: string;
+  rowKey?: keyof T;
 }

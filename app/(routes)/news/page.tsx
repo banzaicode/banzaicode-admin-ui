@@ -27,27 +27,51 @@ const getImageForOrigin = (origin: string): string => {
   return domainToImage[origin] || '/images/default.svg';
 };
 
+const formatDate = (dateString: string | undefined): string => {
+  if (!dateString) {
+    return 'Fecha no disponible';
+  }
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    return 'Fecha inválida';
+  }
+  return date.toLocaleString('es-ES', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+};
+
 const NewsPage: React.FC = () => {
   const [news, setNews] = React.useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
+  const fetchNews = async () => {
+    try {
+      setIsLoading(true);
+      const newsData = await newsService.getNews();
+      setNews(newsData as NewsItem[]);
+      setError(null);
+    } catch (err) {
+      setError('Error al cargar las noticias. Por favor, intente de nuevo más tarde.');
+      console.error('Error fetching news:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   React.useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        setIsLoading(true);
-        const newsData = await newsService.getNews();
-        setNews(newsData as NewsItem[]);
-        setError(null);
-      } catch (err) {
-        setError('Error al cargar las noticias. Por favor, intente de nuevo más tarde.');
-        console.error('Error fetching news:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchNews();
   }, []);
+
+  const handleRefresh = () => {
+    fetchNews();
+  };
 
   const columns: ColumnDefinition<NewsItem>[] = [
     {
@@ -67,13 +91,10 @@ const NewsPage: React.FC = () => {
       ),
     },
     {
-      key: 'pubDate',
+      key: 'datetime',
       header: 'Fecha y Hora',
       initialWidth: 160,
-      render: (value) => {
-        const date = new Date(value as string);
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-      },
+      render: (value) => formatDate(value as string | undefined),
     },
     {
       key: 'title',
@@ -121,12 +142,14 @@ const NewsPage: React.FC = () => {
                 data={news}
                 columns={columns}
                 onRowClick={handleRowClick}
-                className="text-gray-800 dark:text-gray-100"
+                className="text-gray-800 dark:text-gray-100 news-table-compact"
+                rowKey="_id"
               />
             )
           } 
           title="Noticias de Mercados" 
-          icon={Newspaper} 
+          icon={Newspaper}
+          onRefresh={handleRefresh}
         />            
       </div>
     </div>

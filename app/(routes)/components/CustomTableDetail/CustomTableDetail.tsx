@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { CustomTableDetailProps } from './CustomTableDetail.types';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
-function CustomTableDetail<T extends Record<string, unknown>>({ data, columns, onRowClick, className }: CustomTableDetailProps<T>) {
+function CustomTableDetail<T extends Record<string, unknown>>({ data, columns, onRowClick, className, rowKey }: CustomTableDetailProps<T>) {
   const [expandedRows, setExpandedRows] = useState<Record<string | number, boolean>>({});
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
   const [isResizing, setIsResizing] = useState(false);
@@ -25,12 +25,12 @@ function CustomTableDetail<T extends Record<string, unknown>>({ data, columns, o
   }, [columns]);
 
   const handleRowClick = (row: T) => {
-    const rowId = row.id as string | number;
+    const rowId = rowKey ? row[rowKey] : row.id;
     const hasDescription = row.hasDescription as boolean;
     if (hasDescription) {
       setExpandedRows(prev => ({
         ...prev,
-        [rowId]: !prev[rowId]
+        [rowId as string | number]: !prev[rowId as string | number]
       }));
     }
     if (onRowClick) {
@@ -98,11 +98,11 @@ function CustomTableDetail<T extends Record<string, unknown>>({ data, columns, o
         </TableHeader>
         <TableBody>
           {data.map((row) => {
-            const rowId = row.id as string | number;
-            const isExpanded = expandedRows[rowId];
+            const rowId = rowKey ? row[rowKey] : row.id;
+            const isExpanded = expandedRows[rowId as string | number];
             const hasDescription = row.hasDescription as boolean;
             return (
-              <React.Fragment key={rowId}>
+              <React.Fragment key={rowId as string | number}>
                 <TableRow 
                   onClick={() => handleRowClick(row)} 
                   className="cursor-pointer hover:bg-secondary/10 dark:hover:bg-secondary/20"
