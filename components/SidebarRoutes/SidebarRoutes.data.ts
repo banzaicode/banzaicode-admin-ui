@@ -6,7 +6,8 @@ import {
     ShieldCheck,
     CircleHelpIcon,
     Calendar,
-    Component
+    Component,
+    FormInput
 } from 'lucide-react'
 
 export const dataGeneralSidebar = [
@@ -59,4 +60,9 @@ export const dataDevelopSidebar = [
         label: "Components",
         href: "/elements-ui"
     },
+    {
+        icon: FormInput,
+        label: "Forms",
+        href: "/forms-ui"
+    },    
 ]

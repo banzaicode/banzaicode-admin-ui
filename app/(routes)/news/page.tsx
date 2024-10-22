@@ -22,6 +22,7 @@ const getImageForOrigin = (origin: string): string => {
     'bloomberg.com': '/images/bloomberg.svg',
     'finance.yahoo.com': '/images/yahoofinance.svg',
     'wsj.com': '/images/wallstreetjournal.svg',
+    'reuters.com': '/images/reuters.svg',
     // Agrega más mapeos según sea necesario
   };
   return domainToImage[origin] || '/images/default.svg';
