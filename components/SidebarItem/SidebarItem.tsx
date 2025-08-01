@@ -5,8 +5,7 @@ import { SiderbarItemProps } from "./Sidebaritem.types";
 import { cn } from "../../lib/utils";
 import { usePathname } from "next/navigation";
 
-export default function Sidebaritem( props: SiderbarItemProps) {
-    const { item } = props
+export default function Sidebaritem({ item }: SiderbarItemProps) {
     const { href, icon: Icon, label } = item
 
     const pathname = usePathname()

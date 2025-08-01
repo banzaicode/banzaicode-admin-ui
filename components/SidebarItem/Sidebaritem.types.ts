@@ -5,6 +5,5 @@ export type SiderbarItemProps = {
         label: string,
         icon: LucideIcon,
         href: string
-    },
-    key: string
+    }
 }
