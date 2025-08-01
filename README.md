@@ -14,6 +14,12 @@ pnpm dev
 bun dev
 ```
 
+## Environment Variables
+
+Create a `.env` file based on `.env.example` and set the following variable:
+
+- `NEWS_API_URL` - Base URL for the news API used in the rewrite configuration. This must be provided in all deployment environments.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
