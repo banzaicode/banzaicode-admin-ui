@@ -1,0 +1,11 @@
+{
+  "name": "banzaicode-admin-ui",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "postCreateCommand": "npm install",
+  "forwardPorts": [3000],
+  "containerEnv": {
+    "NEWS_API_URL": "http://localhost:4000",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "your_clerk_publishable_key",
+    "CLERK_SECRET_KEY": "your_clerk_secret_key"
+  }
+}
