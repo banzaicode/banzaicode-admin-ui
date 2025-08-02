@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering contributing to scrap-news-admin-ui. To get started, follow these steps:
+Thank you for considering contributing to banzaicode-admin-ui. To get started, follow these steps:
 
 1. Fork the repository and create your branch from `main`.
 2. Install dependencies:
